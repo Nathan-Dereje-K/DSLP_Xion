@@ -43,5 +43,3 @@ Route::middleware([\Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreSta
         ->middleware(['throttle:6,1'])
         ->name('api.verification.send');
 });
-
-// Other stuff 
