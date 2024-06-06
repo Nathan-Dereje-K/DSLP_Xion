@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     // Create a new user
-    public function register(Request $request)
+    public function registerr(Request $request)
     {
         $request->validate([
             'email' => 'required|email|unique:users,email',
@@ -29,27 +30,5 @@ class UserController extends Controller
         ]);
 
         return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
-    }
-
-    // Login user
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            // Uncomment this before running ...
-            // $token = $user->createToken('AuthToken')->accessToken;
-            // return response()->json(['token' => $token], 200);
-        }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
-    }
-
-    // Logout user
-    public function logout(Request $request)
-    {
-        $request->user()->token()->revoke();
-        return response()->json(['message' => 'Successfully logged out'], 200);
     }
 }
